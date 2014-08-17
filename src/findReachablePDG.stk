@@ -1,0 +1,60 @@
+;; ==================================================================================================================================================
+;; Get all reachable methods by excluding dead/unused methods ==> if it reachable from #System_Initialization PDG then it is a reachable PDG.
+;; This is how it works:
+;; 1. Find #System_Initialization PDG (called SysInitPDG) from all PDGs
+;; 2. Get all PDG vertices from SysInitPDG and do a slice forward to find out all reachable PDG vertices
+;; 3. From those reachable PDG vertices, we try to find the actual PDG where those vertices belong
+;; 4. From those reachable PDG, we again filter on user-defined PDG to include only methods that user defined (excluding any system/library methods)
+;; 5. Return a list of reachable PDG
+;; ==================================================================================================================================================
+
+;; Load collection utils (such as for filtering)
+(load "/Users/amhamid/dev/master-thesis/src/collectionUtils.stk")
+
+(define (reachable-pdg:find)
+	(let(
+			(sysInitPDG (col-utils:filter (lambda (x) (eqv? (pdg-kind x) 'system-initialization)) (sdg-pdgs)))
+		)
+		(let(
+				(sysInitVertices (pdg-vertices (car sysInitPDG)))
+			)
+			(let(
+					(allReachablePDGs (pdg-vertex-set-pdgs (s-forward-slice sysInitVertices 'data-control)))
+				)
+				(newline)
+				(newline)
+				(display "reachable-pdg:find")
+				(newline)
+				(display "All reachable PDG: (including system libraries):          ") (display (length allReachablePDGs))
+				(newline)
+				(let(
+						(result (col-utils:filter (lambda (y) (eqv? (pdg-kind y) 'user-defined)) allReachablePDGs))
+					)
+					(display "All reachable PDG: (ONLY user-defined):                   ") (display (length result))
+					(newline)
+					result
+				)		  		
+			)
+	    )
+	)
+)
+
+(define (reachable-pdg:getAllVertex)
+	(let(
+			(result '())
+		)
+		(for-each
+			(lambda (v)
+				(set! result (append (pdg-vertex-set->list (pdg-vertices v)) result))
+			)
+			(reachable-pdg:find)
+		)
+		(newline)
+		(newline)
+		(display "reachable-pdg:getAllVertex")
+		(newline)
+		(display "Total number of vertices:                                 ") (display (length result))
+		(newline)
+		result
+	)
+)

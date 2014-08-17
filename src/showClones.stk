@@ -1,0 +1,57 @@
+(load "/Users/amhamid/dev/master-thesis/src/collectionUtils.stk")
+(load "/Users/amhamid/dev/master-thesis/src/findClones.stk")
+
+; Main execution
+(define (show-clones:main debug)
+	(let(
+			(clones (find-clones:main debug))
+			(totalNumberOfClones 0)
+			(cloneFragmentNumber 0)
+			(totalCloneInFragmentsList '())
+		)
+		(newline)
+		(newline)
+		
+		(for-each
+			(lambda (vertices)
+				(let(
+						(showPath #t)
+					)
+					(for-each
+						(lambda (xs)
+							(let(
+									(v1 (car xs))
+									(v2 (cdr xs))
+								)
+								(let(
+										(sfidV1 (car (pdg-vertex-file-line v1)))
+										(lineNumberV1 (cdr (pdg-vertex-file-line v1)))							
+										(sfidV2 (car (pdg-vertex-file-line v2)))
+										(lineNumberV2 (cdr (pdg-vertex-file-line v2)))							
+										(methodName1 (pdg-procedure-name (pdg-vertex-pdg v1)))
+										(methodName2 (pdg-procedure-name (pdg-vertex-pdg v2)))
+									)
+									(let(
+											(filePathV1 (file-get-include-name sfidV1))
+											(filePathV2 (file-get-include-name sfidV2))
+										)
+										(display filePathV1)(display "===>")(display methodName1) (display "===>")(display "Line ") (display lineNumberV1) (display ": ") (display (pdg-vertex-characters v1))
+										(display "===>")
+										(display filePathV2)(display "===>")(display methodName2)(display "===>")(display "Line ")(display lineNumberV2) (display ": ") (display (pdg-vertex-characters v2))
+										(newline)
+									)
+								)
+							)
+						)
+						vertices
+					)
+				)
+			)
+			clones
+		)
+	)	
+)
+
+(define main
+	(show-clones:main #t)
+)

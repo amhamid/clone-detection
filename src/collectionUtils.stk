@@ -1,0 +1,106 @@
+; ===================================
+; Collection Utils
+; ===================================
+
+; Filter collection
+(define (col-utils:filter pred ls) 
+	(cond ((null? ls) '())
+		((pred (car ls)) (cons (car ls) (col-utils:filter pred (cdr ls))))
+        (else (col-utils:filter pred (cdr ls)))
+    )
+)
+
+
+; Convert cfgEdgeSet to list
+(define (col-utils:cfgEdgeSet->list cfgEdgeSet)
+	(let(
+			(result '())
+		)
+		(cfg-edge-set-traverse 
+			cfgEdgeSet
+			(lambda (v e) 
+				(set! result (cons v result))
+			)
+		)
+		result
+	)
+)
+
+
+; Convert pdgEdgeSet to list
+(define (col-utils:pdgEdgeSet->list pdgEdgeSet)
+	(let(
+			(result '())
+		)
+		(pdg-edge-set-traverse 
+			pdgEdgeSet
+			(lambda (v e) 
+				(set! result (cons v result))
+			)
+		)
+		result
+	)
+)
+
+
+; Filter on pdg kind
+(define (col-utils:filterOnKind vertexList pdgKind)
+	(col-utils:filter (lambda (v) (eqv? (pdg-vertex-kind v) pdgKind)) vertexList)
+)
+
+
+; Filter on pdg name
+(define (col-utils:filterOnName pdgName vertexList)
+	(let ((matchedPdg (col-utils:filter (lambda (x)  (equal? (pdg-procedure-name x) pdgName)) vertexList)))
+		(pdg-vertices (car matchedPdg))
+	)
+)
+
+
+; Computing (and) for a list of boolean
+(define (col-utils:and? lst)
+	(if (null? lst) 
+		#t
+		(and (car lst) (col-utils:and? (cdr lst)))	
+    )
+)
+
+
+; Computing (or) for a list of boolean
+(define (col-utils:or? lst)
+	(if (null? lst) 
+		#f
+		(or (car lst) (col-utils:or? (cdr lst)))	
+    )
+)
+
+
+; Is element e contained in lst?
+(define (col-utils:contain-one? e lst)
+	(cond ((null? lst) #f)
+		((equal? e (car lst)) #t)
+        (else (col-utils:contain-one? e (cdr lst)))
+    )
+)
+
+
+; Is lst1 a sublist of lst2 --> e.g (contains? '(1 2) '(1 2 3)) will return true
+(define (col-utils:contain? lst1 lst2)
+	(col-utils:and? (map (lambda (e) (col-utils:contain-one? e lst2)) lst1))
+)
+
+
+; The same with (col-utils:contain?) above but this one is checking a list against a list of list
+(define (col-utils:contain-list? lst lstOfLst)
+	(col-utils:or? 
+		(map 
+			(lambda (xs) 
+				(if (not (equal? lst xs))
+					(col-utils:contain? lst xs) 
+					#f
+				)
+			) 
+			lstOfLst
+		)
+	)
+)

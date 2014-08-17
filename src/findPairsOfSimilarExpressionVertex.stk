@@ -1,0 +1,127 @@
+; Find pairs of similar expression vertices, which will be used as a starting point to do the back slicing
+; The matched expression vertices is based on their syntactic structure (static type (e.g. integer) and not their variable name) --> e.g. i = j + k + 1  <==is equivaslent to==>  a = b + c + 1
+; The output should be a list of tuple of vertex --> list( (v1,v2), (v3,v4) )
+
+(load "/Users/amhamid/dev/master-thesis/src/collectionUtils.stk")
+(load "/Users/amhamid/dev/master-thesis/src/findReachablePDG.stk")
+
+(define (pair-vertex:createStatementASTList op lhs rhs)
+	(list 
+		(ast-class-name op) 
+		(if (ast? lhs)
+		    (ast-class-name (ast-class lhs))
+		    lhs
+		)
+		(if (ast? rhs)
+		    (ast-class-name (ast-class rhs))
+		    rhs
+		)
+	)
+)
+
+(define (pair-vertex:createComparatorAstList comparator type value)
+	; we ignore initialization because we ignore literal value anyway and this means that in the refactoring process, they will end-up as parameter(s) to the newly created procedure or function.
+	(if (not (equal? 'c:= (ast-class-name comparator)))
+		(begin
+			(list
+				(ast-class-name comparator) 
+				(ast-class-name type) 
+				(if (ast? value)
+				    (ast-class-name (ast-class value))
+				    value
+				)
+			)
+		)
+		#f
+	)	
+)
+
+; Return boolean value. 
+; First it checks if v1 and v2 has the same string representation, if yes true otherwise start checking its AST structure.
+(define (pair-vertex:compareAST v1 v2)
+	(if
+		(equal? (pdg-vertex-characters v1) (pdg-vertex-characters v2))
+		#t
+		(let(
+				(astV1 (pdg-vertex-ast v1 'normalized))
+				(astV2 (pdg-vertex-ast v2 'normalized))
+			)
+			(if (and 
+					(not (equal? #f astV1)) 
+					(not (equal? #f astV2))
+				)
+				(let(
+						(astV1Attributes (ast-attributes astV1))
+						(astV2Attributes (ast-attributes astV2))
+					)
+					(let(
+							; get the type of v1
+							(astV1Type (col-utils:filter (lambda (x) (equal? :type (car x))) astV1Attributes))
+							; get the type of v2
+							(astV2Type (col-utils:filter (lambda (x) (equal? :type (car x))) astV2Attributes))
+						)
+
+						; compare only if v1 and v2 have the same type (e.g. integer)
+						(if (equal? (cdr astV1Type) (cdr astV2Type))
+							(begin			
+								(let(
+										; pattern match on statement assignment with operator (no initialization e.g. i=0)
+										(v1Structure (ast-case astV1 ((c:= :2 (?op :1 ?lhs :2 ?rhs)) (pair-vertex:createStatementASTList op lhs rhs))))
+										(v2Structure (ast-case astV2 ((c:= :2 (?op :1 ?lhs :2 ?rhs)) (pair-vertex:createStatementASTList op lhs rhs))))
+
+										; pattern match on comparison (c<10)
+										(v1ControlStructure (ast-case astV1 ((?comparator :2 (?type :1 ?value)) (pair-vertex:createComparatorAstList comparator type value))))	
+										(v2ControlStructure (ast-case astV2 ((?comparator :2 (?type :1 ?value)) (pair-vertex:createComparatorAstList comparator type value))))
+									)
+									; compare ast-dump of an AST (where this will be a strict check --> e.g. find a direct call to a procedure or method) 
+									; also check for statement with operator (e.g. i = j + k) and check for statement with comparator (in control-point vertex)
+									(or 
+										(equal? (ast-dump astV1) (ast-dump astV2))
+										(and (not (equal? #f v1Structure)) (equal? v1Structure v2Structure))
+										(and (not (equal? #f v1ControlStructure)) (equal? v1ControlStructure v2ControlStructure))
+									)
+								)
+							)
+						)
+					)
+				)
+				#f
+			)
+		)
+	)	
+)
+
+; Find pair of vertices that has similar syntactic structure (by comparing its AST)
+(define (pair-vertex:find results expressionVertices debug)
+	(if (eq? 0 (length expressionVertices))
+	    results		; if true
+	    (begin		; else block
+	    	(let(
+					(v (car expressionVertices))    ; head
+					(vs (cdr expressionVertices))   ; tail
+				)
+	    		(let(
+	    			(matchedVertices (col-utils:filter (lambda (v2) (pair-vertex:compareAST v v2)) vs))
+	    		)	
+	    			(for-each
+	    				(lambda (x)
+	    					; for debug purposes 		
+							(if debug
+								(begin
+									(display "pair-vertex:find  ")
+									(display (pdg-vertex-characters v))
+			    					(display " <===> ")
+			    					(display (pdg-vertex-characters x))
+			    					(newline)
+								)
+							)
+	    					(set! results (cons (cons v x) results))  ; list of tuple of vertex   	
+	    				)
+	    				matchedVertices
+	    			)
+	    			(pair-vertex:find results vs debug)
+		    	)
+			)   	
+	    )
+	)
+)

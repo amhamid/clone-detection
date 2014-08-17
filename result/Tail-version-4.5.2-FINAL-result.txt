@@ -1,0 +1,715 @@
+
+  Tail version 4.5.12 
+
+  Release year: +/- 2003
+
+
+============================
+  Clone Detection RESULT:
+============================
+Time elapsed: +/- 6 seconds
+
+
+=========================================================================
+ ~/dev/sandbox/COREUTILS-4_5_12/src $ csurf ./tail
+ STk> (load "/Users/amhamid/dev/master-thesis/scheme/showClones.stk")
+=========================================================================
+
+reachable-pdg:find
+All PDG: (including system libraries):             72                                          
+All REACHABLE PDG: (including system libraries):   57
+
+All PDG: (ONLY user-defined):                      23                                          
+All REACHABLE PDG: (ONLY user-defined):            23
+Total unused method:                               0
+
+
+reachable-pdg:getAllVertex
+Total number of vertices:                          3052
+
+
+====================================================================================================================================
+ ~/dev/master-thesis/src (master)$ ./GroupingClones.rb /Users/amhamid/dev/master-thesis/result/Tail-version-4.5.2-RAW-result.txt 
+====================================================================================================================================
+
+
+=========================================================
+ Total number of nodes for all clones:             240
+
+ # Clone groups with range 5 to 9 nodes:           14
+ # Clone groups with range 10 to 19 nodes:         8
+ # Clone groups with range 20 to 29 nodes:         2
+ # Clone groups with range 30 to 39 nodes:         0
+ # Clone groups with range 40 to 49 nodes:         0
+ # Clone groups with range 50 to 59 nodes:         0
+ # Clone groups with range 60 to 69 nodes:         0
+ # Clone groups with range more than 70 nodes:     0
+=========================================================
+
+====================
+ Clone Fragments 1
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:file_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines()
+Line 436: pos -= bytes_read ===> Line 599: i = total_lines - n_lines
+Line 447: --n_lines ===> Line 599: --i
+Line 460: n = nl - buffer ===> Line 602: i = cp - tmp->buffer
+Line 461: n_lines-- ===> Line 599: --i
+Line 481: pos -= BUFSIZ ===> Line 599: --i
+
+====================
+ Clone Fragments 2
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:file_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:start_bytes()
+Line 436: pos -= bytes_read ===> Line 735: n_bytes -= bytes_read
+Line 438: bytes_read = safe_read () ===> Line 727: bytes_read = safe_read ()
+Line 439: bytes_read == SAFE_READ_ERROR ===> Line 730: bytes_read == SAFE_READ_ERROR
+Line 484: bytes_read = safe_read () ===> Line 727: bytes_read = safe_read ()
+Line 485: bytes_read == SAFE_READ_ERROR ===> Line 730: bytes_read == SAFE_READ_ERROR
+
+====================
+ Clone Fragments 3
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:file_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:start_lines()
+Line 426: n_lines == 0 ===> Line 755: n_lines == 0
+Line 438: bytes_read = safe_read () ===> Line 761: bytes_read = safe_read ()
+Line 439: bytes_read == SAFE_READ_ERROR ===> Line 764: bytes_read == SAFE_READ_ERROR
+Line 447: --n_lines ===> Line 771: --n_lines
+Line 461: n_lines == 0 ===> Line 755: n_lines == 0
+Line 461: n_lines-- ===> Line 771: --n_lines
+Line 481: pos -= BUFSIZ ===> Line 771: --n_lines
+Line 484: bytes_read = safe_read () ===> Line 761: bytes_read = safe_read ()
+Line 485: bytes_read == SAFE_READ_ERROR ===> Line 764: bytes_read == SAFE_READ_ERROR
+
+====================
+ Clone Fragments 4
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_bytes()
+Line 514: errors = 0 ===> Line 638: errors = 0
+Line 517: last = (LBUFFER *) xmalloc () ===> Line 640: last = (CBUFFER *) xmalloc ()
+Line 517: last = (LBUFFER *) xmalloc () ===> Line 643: tmp = (CBUFFER *) xmalloc ()
+Line 517: last = (LBUFFER *) xmalloc () ===> Line 675: tmp = (CBUFFER *) xmalloc ()
+Line 518: first->nbytes = first->nlines = 0 ===> Line 666: last = last->next = tmp
+Line 518: first->nbytes = first->nlines = 0 ===> Line 671: first = first->next
+Line 518: first->nbytes = first->nlines = 0 ===> Line 691: tmp = tmp->next
+Line 518: first->nbytes = first->nlines = 0 ===> Line 702: tmp = tmp->next
+Line 518: first->nbytes = first->nlines = 0 ===> Line 708: tmp = first->next
+Line 519: first->next = NULL ===> Line 642: first->next = NULL
+Line 519: first->next = NULL ===> Line 648: tmp->next = NULL
+Line 520: tmp = (LBUFFER *) xmalloc () ===> Line 640: last = (CBUFFER *) xmalloc ()
+Line 520: tmp = (LBUFFER *) xmalloc () ===> Line 643: tmp = (CBUFFER *) xmalloc ()
+Line 520: tmp = (LBUFFER *) xmalloc () ===> Line 675: tmp = (CBUFFER *) xmalloc ()
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 666: last = last->next = tmp
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 671: first = first->next
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 691: tmp = tmp->next
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 702: tmp = tmp->next
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 708: tmp = first->next
+Line 523: (nbytes = tmp->nbytes = safe_read ()) > 0 ===> Line 646: (tmp->nbytes = safe_read ()) > 0
+Line 526: tmp->next = NULL ===> Line 642: first->next = NULL
+Line 526: tmp->next = NULL ===> Line 648: tmp->next = NULL
+Line 529: i = 0 ===> Line 699: i = 0
+Line 532: total_lines += tmp->nlines ===> Line 650: total_bytes += tmp->nbytes
+Line 537: tmp->nbytes + last->nbytes < BUFSIZ ===> Line 654: tmp->nbytes + last->nbytes < BUFSIZ
+Line 540: last->nbytes += tmp->nbytes ===> Line 657: last->nbytes += tmp->nbytes
+Line 541: last->nlines += tmp->nlines ===> Line 657: last->nbytes += tmp->nbytes
+Line 550: last = last->next = tmp ===> Line 666: last = last->next = tmp
+Line 550: last = last->next = tmp ===> Line 671: first = first->next
+Line 550: last = last->next = tmp ===> Line 691: tmp = tmp->next
+Line 550: last = last->next = tmp ===> Line 702: tmp = tmp->next
+Line 550: last = last->next = tmp ===> Line 708: tmp = first->next
+Line 550: last->next = tmp ===> Line 666: last->next = tmp
+Line 553: tmp = first ===> Line 669: tmp = first
+Line 553: tmp = first ===> Line 691: tmp = first
+Line 554: total_lines -= first->nlines ===> Line 670: total_bytes -= first->nbytes
+Line 554: total_lines -= first->nlines ===> Line 692: total_bytes -= tmp->nbytes
+Line 555: first = first->next ===> Line 666: last = last->next = tmp
+Line 555: first = first->next ===> Line 671: first = first->next
+Line 555: first = first->next ===> Line 691: tmp = tmp->next
+Line 555: first = first->next ===> Line 702: tmp = tmp->next
+Line 558: tmp = (LBUFFER *) xmalloc () ===> Line 640: last = (CBUFFER *) xmalloc ()
+Line 558: tmp = (LBUFFER *) xmalloc () ===> Line 643: tmp = (CBUFFER *) xmalloc ()
+Line 558: tmp = (LBUFFER *) xmalloc () ===> Line 675: tmp = (CBUFFER *) xmalloc ()
+Line 567: errors = 1 ===> Line 682: errors = 1
+Line 588: tmp = first ===> Line 669: tmp = first
+Line 588: tmp = first ===> Line 691: tmp = first
+Line 588: tmp = tmp->next ===> Line 666: last = last->next = tmp
+Line 588: tmp = tmp->next ===> Line 671: first = first->next
+Line 588: tmp = tmp->next ===> Line 691: tmp = tmp->next
+Line 588: tmp = tmp->next ===> Line 702: tmp = tmp->next
+Line 588: tmp = tmp->next ===> Line 708: tmp = first->next
+Line 589: total_lines -= tmp->nlines ===> Line 670: total_bytes -= first->nbytes
+Line 589: total_lines -= tmp->nlines ===> Line 692: total_bytes -= tmp->nbytes
+Line 599: i = total_lines - n_lines ===> Line 697: i = total_bytes - n_bytes
+Line 605: i = 0 ===> Line 699: i = 0
+Line 608: for ( tmp ===> Line 702: for ( tmp
+Line 608: tmp = tmp->next ===> Line 666: last = last->next = tmp
+Line 608: tmp = tmp->next ===> Line 671: first = first->next
+Line 608: tmp = tmp->next ===> Line 691: tmp = tmp->next
+Line 608: tmp = tmp->next ===> Line 702: tmp = tmp->next
+Line 608: tmp = tmp->next ===> Line 708: tmp = first->next
+Line 612: first ===> Line 706: first
+Line 614: tmp = first->next ===> Line 666: last = last->next = tmp
+Line 614: tmp = first->next ===> Line 671: first = first->next
+Line 614: tmp = first->next ===> Line 691: tmp = tmp->next
+Line 614: tmp = first->next ===> Line 702: tmp = tmp->next
+Line 614: tmp = first->next ===> Line 708: tmp = first->next
+Line 616: first = tmp ===> Line 710: first = tmp
+Line 618: errors ===> Line 712: errors
+
+====================
+ Clone Fragments 5
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_obsolescent_option()
+Line 519: first->next = NULL ===> Line 1287: n_string = NULL
+Line 519: first->next = NULL ===> Line 1375: NULL
+Line 526: tmp->next = NULL ===> Line 1287: n_string = NULL
+Line 526: tmp->next = NULL ===> Line 1375: NULL
+Line 529: i++ ===> Line 1317: ++p
+Line 529: i++ ===> Line 1323: ++p
+Line 529: i++ ===> Line 1333: ++p
+Line 529: i++ ===> Line 1337: ++p
+Line 529: i++ ===> Line 1344: ++p
+Line 583: ++total_lines ===> Line 1317: ++p
+Line 583: ++total_lines ===> Line 1323: ++p
+Line 583: ++total_lines ===> Line 1333: ++p
+Line 583: ++total_lines ===> Line 1337: ++p
+Line 583: ++total_lines ===> Line 1344: ++p
+Line 599: i = total_lines - n_lines ===> Line 1381: len = n_string_end - n_string
+Line 600: cp++ ===> Line 1317: ++p
+Line 600: cp++ ===> Line 1323: ++p
+Line 600: cp++ ===> Line 1333: ++p
+Line 600: cp++ ===> Line 1337: ++p
+Line 600: cp++ ===> Line 1344: ++p
+
+====================
+ Clone Fragments 6
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:main()
+Line 517: last = (LBUFFER *) xmalloc () ===> Line 1644: F = (struct File_spec *) xmalloc ()
+Line 520: tmp = (LBUFFER *) xmalloc () ===> Line 1644: F = (struct File_spec *) xmalloc ()
+Line 529: i = 0 ===> Line 1645: i = 0
+Line 529: i = 0 ===> Line 1652: i = 0
+Line 529: i++ ===> Line 1645: i++
+Line 529: i++ ===> Line 1652: i++
+Line 558: tmp = (LBUFFER *) xmalloc () ===> Line 1644: F = (struct File_spec *) xmalloc ()
+Line 583: ++total_lines ===> Line 1645: i++
+Line 583: ++total_lines ===> Line 1652: i++
+Line 599: --i ===> Line 1631: --n_units
+Line 599: i = total_lines - n_lines ===> Line 1634: n_files = argc - optind
+Line 600: cp++ ===> Line 1645: i++
+Line 600: cp++ ===> Line 1652: i++
+Line 605: i = 0 ===> Line 1645: i = 0
+Line 605: i = 0 ===> Line 1652: i = 0
+
+====================
+ Clone Fragments 7
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines()
+Line 517: last = (LBUFFER *) xmalloc () ===> Line 520: tmp = (LBUFFER *) xmalloc ()
+Line 517: last = (LBUFFER *) xmalloc () ===> Line 558: tmp = (LBUFFER *) xmalloc ()
+Line 518: first->nbytes = first->nlines = 0 ===> Line 523: (nbytes = tmp->nbytes = safe_read ())
+Line 518: first->nbytes = first->nlines = 0 ===> Line 550: last = last->next = tmp
+Line 518: first->nbytes = first->nlines = 0 ===> Line 555: first = first->next
+Line 518: first->nbytes = first->nlines = 0 ===> Line 608: tmp = tmp->next
+Line 518: first->nbytes = first->nlines = 0 ===> Line 614: tmp = first->next
+Line 519: first->next = NULL ===> Line 526: tmp->next = NULL
+Line 520: tmp = (LBUFFER *) xmalloc () ===> Line 517: last = (LBUFFER *) xmalloc ()
+Line 520: tmp = (LBUFFER *) xmalloc () ===> Line 558: tmp = (LBUFFER *) xmalloc ()
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 550: last = last->next = tmp
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 555: first = first->next
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 608: tmp = tmp->next
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 614: tmp = first->next
+Line 529: i = 0 ===> Line 605: i = 0
+Line 540: last->nbytes += tmp->nbytes ===> Line 541: last->nlines += tmp->nlines
+Line 550: last = last->next = tmp ===> Line 555: first = first->next
+Line 550: last = last->next = tmp ===> Line 608: tmp = tmp->next
+Line 550: last = last->next = tmp ===> Line 614: tmp = first->next
+Line 553: tmp = first ===> Line 588: tmp = first
+Line 555: first = first->next ===> Line 608: tmp = tmp->next
+Line 558: tmp = (LBUFFER *) xmalloc () ===> Line 517: last = (LBUFFER *) xmalloc ()
+Line 582: ++last->nlines ===> Line 531: ++tmp->nlines
+Line 583: ++total_lines ===> Line 529: i++
+Line 588: for ( total_lines - tmp->nlines > n_lines ===> Line 551: total_lines - first->nlines > n_lines
+Line 588: tmp = first ===> Line 553: tmp = first
+Line 588: tmp = tmp->next ===> Line 518: first->nbytes = first->nlines = 0
+Line 588: tmp = tmp->next ===> Line 523: (nbytes = tmp->nbytes = safe_read ())
+Line 588: tmp = tmp->next ===> Line 550: last = last->next = tmp
+Line 588: tmp = tmp->next ===> Line 555: first = first->next
+Line 588: tmp = tmp->next ===> Line 608: tmp = tmp->next
+Line 588: tmp = tmp->next ===> Line 614: tmp = first->next
+Line 589: total_lines -= tmp->nlines ===> Line 554: total_lines -= first->nlines
+Line 600: *cp != '\n' ===> Line 580: last->buffer[last->nbytes - 1] != '\n'
+Line 600: cp++ ===> Line 529: i++
+Line 600: cp++ ===> Line 583: ++total_lines
+Line 608: tmp = tmp->next ===> Line 555: first = first->next
+Line 608: tmp = tmp->next ===> Line 608: tmp = tmp->next
+Line 608: tmp = tmp->next ===> Line 614: tmp = first->next
+Line 614: tmp = first->next ===> Line 608: tmp = tmp->next
+
+====================
+ Clone Fragments 8
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_forever()
+Line 518: first->nbytes = first->nlines = 0 ===> Line 1002: f[i].fd
+Line 518: first->nbytes = first->nlines = 0 ===> Line 1014: f[i].fd
+Line 518: first->nbytes = first->nlines = 0 ===> Line 970: f[i].n_unchanged_stats
+Line 518: first->nbytes = first->nlines = 0 ===> Line 982: f[i].n_consecutive_size_changes
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 1002: f[i].fd
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 1014: f[i].fd
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 970: f[i].n_unchanged_stats
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 982: f[i].n_consecutive_size_changes
+Line 529: for ( i < tmp->nbytes ===> Line 998: stats.st_size < f[i].size
+Line 529: i = 0 ===> Line 945: i = 0
+Line 529: i++ ===> Line 945: i++
+Line 531: ++tmp->nlines ===> Line 970: f[i].n_unchanged_stats++
+Line 531: ++tmp->nlines ===> Line 982: f[i].n_consecutive_size_changes++
+Line 550: last = last->next = tmp ===> Line 1002: f[i].fd
+Line 550: last = last->next = tmp ===> Line 1014: f[i].fd
+Line 550: last = last->next = tmp ===> Line 970: f[i].n_unchanged_stats
+Line 550: last = last->next = tmp ===> Line 982: f[i].n_consecutive_size_changes
+Line 555: first = first->next ===> Line 1002: f[i].fd
+Line 555: first = first->next ===> Line 1014: f[i].fd
+Line 555: first = first->next ===> Line 970: f[i].n_unchanged_stats
+Line 555: first = first->next ===> Line 982: f[i].n_consecutive_size_changes
+Line 582: ++last->nlines ===> Line 970: f[i].n_unchanged_stats++
+Line 582: ++last->nlines ===> Line 982: f[i].n_consecutive_size_changes++
+Line 583: ++total_lines ===> Line 945: i++
+Line 588: tmp = tmp->next ===> Line 1002: f[i].fd
+Line 588: tmp = tmp->next ===> Line 1014: f[i].fd
+Line 588: tmp = tmp->next ===> Line 970: f[i].n_unchanged_stats
+Line 588: tmp = tmp->next ===> Line 982: f[i].n_consecutive_size_changes
+Line 599: --i ===> Line 937: last = nfiles - 1
+Line 600: cp++ ===> Line 945: i++
+Line 605: i = 0 ===> Line 945: i = 0
+Line 608: tmp = tmp->next ===> Line 1002: f[i].fd
+Line 608: tmp = tmp->next ===> Line 1014: f[i].fd
+Line 608: tmp = tmp->next ===> Line 970: f[i].n_unchanged_stats
+Line 608: tmp = tmp->next ===> Line 982: f[i].n_consecutive_size_changes
+Line 614: tmp = first->next ===> Line 1002: f[i].fd
+Line 614: tmp = first->next ===> Line 1014: f[i].fd
+Line 614: tmp = first->next ===> Line 970: f[i].n_unchanged_stats
+Line 614: tmp = first->next ===> Line 982: f[i].n_consecutive_size_changes
+
+====================
+ Clone Fragments 9
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_lines() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:recheck()
+Line 518: first->nbytes = first->nlines = 0 ===> Line 794: was_tailable = f->tailable
+Line 518: first->nbytes = first->nlines = 0 ===> Line 795: prev_errnum = f->errnum
+Line 518: first->nbytes = first->nlines = 0 ===> Line 818: f->errnum
+Line 518: first->nbytes = first->nlines = 0 ===> Line 849: f->fd
+Line 518: first->nbytes = first->nlines = 0 ===> Line 870: f->fd
+Line 518: first->nbytes = first->nlines = 0 ===> Line 904: f->fd
+Line 518: first->nbytes = first->nlines = 0 ===> Line 904: f->size
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 794: was_tailable = f->tailable
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 795: prev_errnum = f->errnum
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 818: f->errnum
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 849: f->fd
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 870: f->fd
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 904: f->fd
+Line 523: (nbytes = tmp->nbytes = safe_read ()) ===> Line 904: f->size
+Line 550: last = last->next = tmp ===> Line 794: was_tailable = f->tailable
+Line 550: last = last->next = tmp ===> Line 795: prev_errnum = f->errnum
+Line 550: last = last->next = tmp ===> Line 818: f->errnum
+Line 550: last = last->next = tmp ===> Line 849: f->fd
+Line 550: last = last->next = tmp ===> Line 870: f->fd
+Line 550: last = last->next = tmp ===> Line 904: f->fd
+Line 550: last = last->next = tmp ===> Line 904: f->size
+Line 555: first = first->next ===> Line 794: was_tailable = f->tailable
+Line 555: first = first->next ===> Line 795: prev_errnum = f->errnum
+Line 555: first = first->next ===> Line 818: f->errnum
+Line 555: first = first->next ===> Line 849: f->fd
+Line 555: first = first->next ===> Line 870: f->fd
+Line 555: first = first->next ===> Line 904: f->fd
+Line 555: first = first->next ===> Line 904: f->size
+Line 588: tmp = tmp->next ===> Line 794: was_tailable = f->tailable
+Line 588: tmp = tmp->next ===> Line 795: prev_errnum = f->errnum
+Line 588: tmp = tmp->next ===> Line 818: f->errnum
+Line 588: tmp = tmp->next ===> Line 849: f->fd
+Line 588: tmp = tmp->next ===> Line 870: f->fd
+Line 588: tmp = tmp->next ===> Line 904: f->fd
+Line 588: tmp = tmp->next ===> Line 904: f->size
+Line 608: tmp = tmp->next ===> Line 794: was_tailable = f->tailable
+Line 608: tmp = tmp->next ===> Line 795: prev_errnum = f->errnum
+Line 608: tmp = tmp->next ===> Line 818: f->errnum
+Line 608: tmp = tmp->next ===> Line 849: f->fd
+Line 608: tmp = tmp->next ===> Line 870: f->fd
+Line 608: tmp = tmp->next ===> Line 904: f->fd
+Line 608: tmp = tmp->next ===> Line 904: f->size
+Line 614: tmp = first->next ===> Line 794: was_tailable = f->tailable
+Line 614: tmp = first->next ===> Line 795: prev_errnum = f->errnum
+Line 614: tmp = first->next ===> Line 818: f->errnum
+Line 614: tmp = first->next ===> Line 849: f->fd
+Line 614: tmp = first->next ===> Line 870: f->fd
+Line 614: tmp = first->next ===> Line 904: f->fd
+Line 614: tmp = first->next ===> Line 904: f->size
+
+====================
+ Clone Fragments 10
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_bytes() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_bytes()
+Line 640: last = (CBUFFER *) xmalloc () ===> Line 643: tmp = (CBUFFER *) xmalloc ()
+Line 640: last = (CBUFFER *) xmalloc () ===> Line 675: tmp = (CBUFFER *) xmalloc ()
+Line 648: tmp->next = NULL ===> Line 642: first->next = NULL
+Line 666: last = last->next = tmp ===> Line 671: first = first->next
+Line 666: last = last->next = tmp ===> Line 702: tmp = tmp->next
+Line 666: last = last->next = tmp ===> Line 708: tmp = first->next
+Line 669: tmp = first ===> Line 691: tmp = first
+Line 671: first = first->next ===> Line 702: tmp = tmp->next
+Line 675: tmp = (CBUFFER *) xmalloc () ===> Line 643: tmp = (CBUFFER *) xmalloc ()
+Line 691: for ( total_bytes - tmp->nbytes > n_bytes ===> Line 667: total_bytes - first->nbytes > n_bytes
+Line 691: tmp = tmp->next ===> Line 666: last = last->next = tmp
+Line 691: tmp = tmp->next ===> Line 671: first = first->next
+Line 691: tmp = tmp->next ===> Line 702: tmp = tmp->next
+Line 691: tmp = tmp->next ===> Line 708: tmp = first->next
+Line 692: total_bytes -= tmp->nbytes ===> Line 670: total_bytes -= first->nbytes
+Line 702: tmp = tmp->next ===> Line 702: tmp = tmp->next
+Line 702: tmp = tmp->next ===> Line 708: tmp = first->next
+Line 708: tmp = first->next ===> Line 702: tmp = tmp->next
+
+====================
+ Clone Fragments 11
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_bytes() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:recheck()
+Line 666: last = last->next = tmp ===> Line 794: was_tailable = f->tailable
+Line 666: last = last->next = tmp ===> Line 795: prev_errnum = f->errnum
+Line 666: last = last->next = tmp ===> Line 818: f->errnum
+Line 666: last = last->next = tmp ===> Line 849: f->fd
+Line 666: last = last->next = tmp ===> Line 870: f->fd
+Line 666: last = last->next = tmp ===> Line 904: f->fd
+Line 666: last = last->next = tmp ===> Line 904: f->size
+Line 671: first = first->next ===> Line 794: was_tailable = f->tailable
+Line 671: first = first->next ===> Line 795: prev_errnum = f->errnum
+Line 671: first = first->next ===> Line 818: f->errnum
+Line 671: first = first->next ===> Line 849: f->fd
+Line 671: first = first->next ===> Line 870: f->fd
+Line 671: first = first->next ===> Line 904: f->fd
+Line 671: first = first->next ===> Line 904: f->size
+Line 679: tmp->nbytes == -1 ===> Line 861: f->fd == -1
+Line 691: tmp = tmp->next ===> Line 794: was_tailable = f->tailable
+Line 691: tmp = tmp->next ===> Line 795: prev_errnum = f->errnum
+Line 691: tmp = tmp->next ===> Line 818: f->errnum
+Line 691: tmp = tmp->next ===> Line 849: f->fd
+Line 691: tmp = tmp->next ===> Line 870: f->fd
+Line 691: tmp = tmp->next ===> Line 904: f->fd
+Line 691: tmp = tmp->next ===> Line 904: f->size
+Line 702: tmp = tmp->next ===> Line 794: was_tailable = f->tailable
+Line 702: tmp = tmp->next ===> Line 795: prev_errnum = f->errnum
+Line 702: tmp = tmp->next ===> Line 818: f->errnum
+Line 702: tmp = tmp->next ===> Line 849: f->fd
+Line 702: tmp = tmp->next ===> Line 870: f->fd
+Line 702: tmp = tmp->next ===> Line 904: f->fd
+Line 702: tmp = tmp->next ===> Line 904: f->size
+Line 708: tmp = first->next ===> Line 794: was_tailable = f->tailable
+Line 708: tmp = first->next ===> Line 795: prev_errnum = f->errnum
+Line 708: tmp = first->next ===> Line 818: f->errnum
+Line 708: tmp = first->next ===> Line 849: f->fd
+Line 708: tmp = first->next ===> Line 870: f->fd
+Line 708: tmp = first->next ===> Line 904: f->fd
+Line 708: tmp = first->next ===> Line 904: f->size
+
+====================
+ Clone Fragments 12
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_bytes() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_forever()
+Line 666: last = last->next = tmp ===> Line 1002: f[i].fd
+Line 666: last = last->next = tmp ===> Line 1014: f[i].fd
+Line 666: last = last->next = tmp ===> Line 970: f[i].n_unchanged_stats
+Line 666: last = last->next = tmp ===> Line 982: f[i].n_consecutive_size_changes
+Line 671: first = first->next ===> Line 1002: f[i].fd
+Line 671: first = first->next ===> Line 1014: f[i].fd
+Line 671: first = first->next ===> Line 970: f[i].n_unchanged_stats
+Line 671: first = first->next ===> Line 982: f[i].n_consecutive_size_changes
+Line 691: tmp = tmp->next ===> Line 1002: f[i].fd
+Line 691: tmp = tmp->next ===> Line 1014: f[i].fd
+Line 691: tmp = tmp->next ===> Line 970: f[i].n_unchanged_stats
+Line 691: tmp = tmp->next ===> Line 982: f[i].n_consecutive_size_changes
+Line 699: i = 0 ===> Line 945: i = 0
+Line 702: tmp = tmp->next ===> Line 1002: f[i].fd
+Line 702: tmp = tmp->next ===> Line 1014: f[i].fd
+Line 702: tmp = tmp->next ===> Line 970: f[i].n_unchanged_stats
+Line 702: tmp = tmp->next ===> Line 982: f[i].n_consecutive_size_changes
+Line 708: tmp = first->next ===> Line 1002: f[i].fd
+Line 708: tmp = first->next ===> Line 1014: f[i].fd
+Line 708: tmp = first->next ===> Line 970: f[i].n_unchanged_stats
+Line 708: tmp = first->next ===> Line 982: f[i].n_consecutive_size_changes
+
+====================
+ Clone Fragments 13
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:pipe_bytes() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:main()
+Line 640: last = (CBUFFER *) xmalloc () ===> Line 1644: F = (struct File_spec *) xmalloc ()
+Line 643: tmp = (CBUFFER *) xmalloc () ===> Line 1644: F = (struct File_spec *) xmalloc ()
+Line 675: tmp = (CBUFFER *) xmalloc () ===> Line 1644: F = (struct File_spec *) xmalloc ()
+Line 697: i = total_bytes - n_bytes ===> Line 1634: n_files = argc - optind
+Line 699: i = 0 ===> Line 1645: i = 0
+Line 699: i = 0 ===> Line 1652: i = 0
+
+====================
+ Clone Fragments 14
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:recheck() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_file()
+Line 793: is_stdin = (STREQ (f->name, "-")) ===> Line 1191: is_stdin = (STREQ (f->name, "-"))
+Line 804: (reopen_inaccessible_files && fd == -1) ===> Line 1203: (reopen_inaccessible_files && fd == -1)
+Line 804: f->tailable = !(reopen_inaccessible_files && fd == -1) ===> Line 1203: f->tailable = !(reopen_inaccessible_files && fd == -1)
+Line 804: fd == -1 ===> Line 1203: fd == -1
+Line 804: reopen_inaccessible_files ===> Line 1203: reopen_inaccessible_files
+Line 806: fstat () < 0 ===> Line 1228: fstat () < 0
+Line 809: f->errnum = errno ===> Line 1210: f->errnum = errno
+Line 809: f->errnum = errno ===> Line 1231: f->errnum = errno
+Line 818: _("`%s' has become inaccessible") ===> Line 1236: _("%s: cannot follow end of this type of file;\
+Line 828: "%s" ===> Line 1215: "%s"
+Line 828: "%s" ===> Line 1232: "%s"
+Line 828: "%s" ===> Line 1264: "%s"
+Line 828: errno ===> Line 1215: errno
+Line 828: errno ===> Line 1232: errno
+Line 828: errno ===> Line 1264: errno
+Line 831: IS_TAILABLE_FILE_TYPE (new_stats.st_mode) ===> Line 1234: IS_TAILABLE_FILE_TYPE (stats.st_mode)
+Line 834: f->errnum = -1 ===> Line 1240: f->errnum = -1
+Line 838: f->ignore = 1 ===> Line 1241: f->ignore = 1
+Line 842: f->errnum = 0 ===> Line 1227: f->errnum = 0
+Line 848: fd ===> Line 1222: fd
+Line 848: fd ===> Line 1246: fd
+Line 850: f->fd = -1 ===> Line 1209: f->fd = -1
+Line 850: f->fd = -1 ===> Line 1247: f->fd = -1
+Line 856: _("`%s' has become accessible") ===> Line 1236: _("%s: cannot follow end of this type of file;\
+Line 861: f->fd == -1 ===> Line 1205: fd == -1
+Line 864: _("`%s' has appeared;  following end of new file") ===> Line 1236: _("%s: cannot follow end of this type of file;\
+Line 875: _("`%s' has been replaced;  following end of new file") ===> Line 1236: _("%s: cannot follow end of this type of file;\
+Line 881: f->fd == -1 ===> Line 1205: fd == -1
+Line 890: fd ===> Line 1222: fd
+Line 890: fd ===> Line 1246: fd
+Line 897: f->fd = fd ===> Line 1251: f->fd = fd
+Line 899: f->dev = new_stats.st_dev ===> Line 1252: f->size = stats.st_size
+Line 899: f->dev = new_stats.st_dev ===> Line 1253: f->dev = stats.st_dev
+Line 899: f->dev = new_stats.st_dev ===> Line 1254: f->ino = stats.st_ino
+Line 900: f->ino = new_stats.st_ino ===> Line 1252: f->size = stats.st_size
+Line 900: f->ino = new_stats.st_ino ===> Line 1253: f->dev = stats.st_dev
+Line 900: f->ino = new_stats.st_ino ===> Line 1254: f->ino = stats.st_ino
+Line 901: f->n_unchanged_stats = 0 ===> Line 1255: f->n_unchanged_stats = 0
+Line 902: f->n_consecutive_size_changes = 0 ===> Line 1256: f->n_consecutive_size_changes = 0
+Line 903: f->ignore = 0 ===> Line 1211: f->ignore = 0
+Line 903: f->ignore = 0 ===> Line 1257: f->ignore = 0
+
+====================
+ Clone Fragments 15
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:recheck() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_options()
+Line 793: is_stdin = (STREQ (f->name, "-")) ===> Line 1464: count_lines = (c == 'n')
+Line 818: _("`%s' has become inaccessible") ===> Line 1478: _("invalid number of lines")
+Line 818: _("`%s' has become inaccessible") ===> Line 1479: _("invalid number of bytes")
+Line 856: _("`%s' has become accessible") ===> Line 1478: _("invalid number of lines")
+Line 856: _("`%s' has become accessible") ===> Line 1479: _("invalid number of bytes")
+Line 864: _("`%s' has appeared;  following end of new file") ===> Line 1478: _("invalid number of lines")
+Line 864: _("`%s' has appeared;  following end of new file") ===> Line 1479: _("invalid number of bytes")
+Line 875: _("`%s' has been replaced;  following end of new file") ===> Line 1478: _("invalid number of lines")
+Line 875: _("`%s' has been replaced;  following end of new file") ===> Line 1479: _("invalid number of bytes")
+
+====================
+ Clone Fragments 16
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:recheck() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:recheck()
+Line 794: was_tailable = f->tailable ===> Line 795: prev_errnum = f->errnum
+Line 794: was_tailable = f->tailable ===> Line 818: f->errnum
+Line 794: was_tailable = f->tailable ===> Line 849: f->fd
+Line 794: was_tailable = f->tailable ===> Line 870: f->fd
+Line 794: was_tailable = f->tailable ===> Line 904: f->fd
+Line 794: was_tailable = f->tailable ===> Line 904: f->size
+Line 795: prev_errnum = f->errnum ===> Line 818: f->errnum
+Line 795: prev_errnum = f->errnum ===> Line 849: f->fd
+Line 795: prev_errnum = f->errnum ===> Line 870: f->fd
+Line 795: prev_errnum = f->errnum ===> Line 904: f->fd
+Line 795: prev_errnum = f->errnum ===> Line 904: f->size
+Line 798: assert (valid_file_spec (f)) ===> Line 798: assert (valid_file_spec (f))
+Line 798: assert (valid_file_spec (f)) ===> Line 855: assert (f->fd == -1)
+Line 804: (reopen_inaccessible_files && fd == -1) ===> Line 804: (reopen_inaccessible_files && fd == -1)
+Line 833: fail = 1 ===> Line 808: fail = 1
+Line 849: f->fd ===> Line 818: f->errnum
+Line 856: _("`%s' has become accessible") ===> Line 818: _("`%s' has become inaccessible")
+Line 860: new_file = 1 ===> Line 854: new_file = 1
+Line 864: _("`%s' has appeared;  following end of new file") ===> Line 818: _("`%s' has become inaccessible")
+Line 864: _("`%s' has appeared;  following end of new file") ===> Line 856: _("`%s' has become accessible")
+Line 870: f->fd ===> Line 818: f->errnum
+Line 870: f->fd ===> Line 849: f->fd
+Line 875: _("`%s' has been replaced;  following end of new file") ===> Line 818: _("`%s' has become inaccessible")
+Line 875: _("`%s' has been replaced;  following end of new file") ===> Line 856: _("`%s' has become accessible")
+Line 875: _("`%s' has been replaced;  following end of new file") ===> Line 864: _("`%s' has appeared;  following end of new file")
+Line 886: new_file = 1 ===> Line 854: new_file = 1
+Line 886: new_file = 1 ===> Line 860: new_file = 1
+Line 890: fd ===> Line 848: fd
+Line 899: f->dev = new_stats.st_dev ===> Line 900: f->ino = new_stats.st_ino
+Line 904: f->fd ===> Line 818: f->errnum
+Line 904: f->fd ===> Line 849: f->fd
+Line 904: f->fd ===> Line 870: f->fd
+Line 904: f->size ===> Line 818: f->errnum
+Line 904: f->size ===> Line 849: f->fd
+Line 904: f->size ===> Line 870: f->fd
+Line 904: f->size ===> Line 904: f->fd
+
+====================
+ Clone Fragments 17
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:recheck() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_forever()
+Line 794: was_tailable = f->tailable ===> Line 1002: f[i].fd
+Line 794: was_tailable = f->tailable ===> Line 1014: f[i].fd
+Line 794: was_tailable = f->tailable ===> Line 970: f[i].n_unchanged_stats
+Line 794: was_tailable = f->tailable ===> Line 982: f[i].n_consecutive_size_changes
+Line 795: prev_errnum = f->errnum ===> Line 1002: f[i].fd
+Line 795: prev_errnum = f->errnum ===> Line 1014: f[i].fd
+Line 795: prev_errnum = f->errnum ===> Line 970: f[i].n_unchanged_stats
+Line 795: prev_errnum = f->errnum ===> Line 982: f[i].n_consecutive_size_changes
+Line 818: _("`%s' has become inaccessible") ===> Line 1000: _("%s: file truncated")
+Line 818: f->errnum ===> Line 1002: f[i].fd
+Line 818: f->errnum ===> Line 1014: f[i].fd
+Line 818: f->errnum ===> Line 970: f[i].n_unchanged_stats
+Line 818: f->errnum ===> Line 982: f[i].n_consecutive_size_changes
+Line 828: "%s" ===> Line 962: "%s"
+Line 828: errno ===> Line 962: errno
+Line 849: f->fd ===> Line 1002: f[i].fd
+Line 849: f->fd ===> Line 1014: f[i].fd
+Line 849: f->fd ===> Line 970: f[i].n_unchanged_stats
+Line 849: f->fd ===> Line 982: f[i].n_consecutive_size_changes
+Line 856: _("`%s' has become accessible") ===> Line 1000: _("%s: file truncated")
+Line 864: _("`%s' has appeared;  following end of new file") ===> Line 1000: _("%s: file truncated")
+Line 870: f->fd ===> Line 1002: f[i].fd
+Line 870: f->fd ===> Line 1014: f[i].fd
+Line 870: f->fd ===> Line 970: f[i].n_unchanged_stats
+Line 870: f->fd ===> Line 982: f[i].n_consecutive_size_changes
+Line 875: _("`%s' has been replaced;  following end of new file") ===> Line 1000: _("%s: file truncated")
+Line 899: f->dev = new_stats.st_dev ===> Line 1004: f[i].size = stats.st_size
+Line 900: f->ino = new_stats.st_ino ===> Line 1004: f[i].size = stats.st_size
+Line 904: SEEK_SET ===> Line 1002: SEEK_SET
+Line 904: f->fd ===> Line 1002: f[i].fd
+Line 904: f->fd ===> Line 1014: f[i].fd
+Line 904: f->fd ===> Line 970: f[i].n_unchanged_stats
+Line 904: f->fd ===> Line 982: f[i].n_consecutive_size_changes
+Line 904: f->size ===> Line 1002: f[i].fd
+Line 904: f->size ===> Line 1014: f[i].fd
+Line 904: f->size ===> Line 970: f[i].n_unchanged_stats
+Line 904: f->size ===> Line 982: f[i].n_consecutive_size_changes
+
+====================
+ Clone Fragments 18
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_forever() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_forever()
+Line 1012: last = i ===> Line 1001: last = i
+Line 1014: f[i].fd ===> Line 1002: f[i].fd
+Line 1015: COPY_TO_EOF ===> Line 1015: COPY_TO_EOF
+Line 1035: (pid != 0 && kill () != 0 && errno != EPERM) ===> Line 1035: (pid != 0 && kill () != 0 && errno != EPERM)
+Line 970: f[i].n_unchanged_stats ===> Line 1002: f[i].fd
+Line 970: f[i].n_unchanged_stats ===> Line 1014: f[i].fd
+Line 970: f[i].n_unchanged_stats ===> Line 982: f[i].n_consecutive_size_changes
+Line 970: f[i].n_unchanged_stats++ ===> Line 982: f[i].n_consecutive_size_changes++
+Line 974: f[i].n_unchanged_stats = 0 ===> Line 996: f[i].n_unchanged_stats = 0
+Line 982: f[i].n_consecutive_size_changes ===> Line 1002: f[i].fd
+Line 982: f[i].n_consecutive_size_changes ===> Line 1014: f[i].fd
+Line 985: f[i].n_consecutive_size_changes = 0 ===> Line 968: f[i].n_consecutive_size_changes = 0
+
+====================
+ Clone Fragments 19
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_bytes() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_lines()
+Line 1055: SET_BINARY2 (fd, STDOUT_FILENO) ===> Line 1132: SET_BINARY2 (fd, STDOUT_FILENO)
+Line 1057: fstat () ===> Line 1134: fstat ()
+Line 1072: (t = start_bytes ()) < 0 ===> Line 1143: (t = start_lines ()) < 0
+Line 1074: t ===> Line 1145: t
+Line 1077: COPY_TO_EOF ===> Line 1147: COPY_TO_EOF
+Line 1092: (diff = end_pos - current_pos) < 0 ===> Line 1143: (t = start_lines ()) < 0
+
+====================
+ Clone Fragments 20
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_file() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:tail_file()
+Line 1203: (reopen_inaccessible_files && fd == -1) ===> Line 1203: (reopen_inaccessible_files && fd == -1)
+Line 1209: f->fd = -1 ===> Line 1247: f->fd = -1
+Line 1210: f->errnum = errno ===> Line 1231: f->errnum = errno
+Line 1211: f->ignore = 0 ===> Line 1257: f->ignore = 0
+Line 1215: "%s" ===> Line 1232: "%s"
+Line 1215: "%s" ===> Line 1264: "%s"
+Line 1215: errno ===> Line 1232: errno
+Line 1215: errno ===> Line 1264: errno
+Line 1216: errors = 1 ===> Line 1230: errors = 1
+Line 1216: errors = 1 ===> Line 1239: errors = 1
+Line 1216: errors = 1 ===> Line 1265: errors = 1
+Line 1222: fd ===> Line 1246: fd
+Line 1239: errors = 1 ===> Line 1230: errors = 1
+Line 1252: f->size = stats.st_size ===> Line 1253: f->dev = stats.st_dev
+Line 1252: f->size = stats.st_size ===> Line 1254: f->ino = stats.st_ino
+Line 1253: f->dev = stats.st_dev ===> Line 1254: f->ino = stats.st_ino
+Line 1264: "%s" ===> Line 1232: "%s"
+Line 1264: errno ===> Line 1232: errno
+Line 1265: errors = 1 ===> Line 1230: errors = 1
+Line 1265: errors = 1 ===> Line 1239: errors = 1
+
+====================
+ Clone Fragments 21
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_obsolescent_option() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_obsolescent_option()
+Line 1287: n_string = NULL ===> Line 1375: NULL
+Line 1307: p[0] == '-' ===> Line 1312: *p == '-'
+Line 1317: ++p ===> Line 1323: ++p
+Line 1317: ++p ===> Line 1333: ++p
+Line 1317: ++p ===> Line 1337: ++p
+Line 1323: ++p ===> Line 1317: ++p
+Line 1323: ++p ===> Line 1333: ++p
+Line 1323: ++p ===> Line 1337: ++p
+Line 1333: ++p ===> Line 1317: ++p
+Line 1333: ++p ===> Line 1323: ++p
+Line 1333: ++p ===> Line 1337: ++p
+Line 1337: ++p ===> Line 1317: ++p
+Line 1337: ++p ===> Line 1323: ++p
+Line 1337: ++p ===> Line 1333: ++p
+Line 1344: ++p ===> Line 1317: ++p
+Line 1344: ++p ===> Line 1323: ++p
+Line 1344: ++p ===> Line 1333: ++p
+Line 1344: ++p ===> Line 1337: ++p
+Line 1357: *fail = 1 ===> Line 1393: *fail = 1
+Line 1357: *fail = 1 ===> Line 1409: *fail = 1
+Line 1376: OFF_T_MAX ===> Line 1376: OFF_T_MAX
+Line 1391: _("number of bytes") ===> Line 1390: _("number of lines")
+Line 1393: *fail = 1 ===> Line 1409: *fail = 1
+
+====================
+ Clone Fragments 22
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_obsolescent_option() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_options()
+Line 1312: *p == '-' ===> Line 1467: *optarg == '-'
+Line 1317: ++p ===> Line 1468: ++optarg
+Line 1323: ++p ===> Line 1468: ++optarg
+Line 1333: ++p ===> Line 1468: ++optarg
+Line 1337: ++p ===> Line 1468: ++optarg
+Line 1344: ++p ===> Line 1468: ++optarg
+Line 1374: s_err = xstrtoumax () ===> Line 1473: s_err = xstrtoumax ()
+Line 1376: OFF_T_MAX ===> Line 1482: OFF_T_MAX
+Line 1376: OFF_T_MAX ===> Line 1532: PID_T_MAX
+Line 1377: *n_units = (off_t) tmp ===> Line 1486: *n_units = (off_t) n
+Line 1390: _("number of lines") ===> Line 1478: _("invalid number of lines")
+Line 1390: _("number of lines") ===> Line 1479: _("invalid number of bytes")
+Line 1391: _("number of bytes") ===> Line 1478: _("invalid number of lines")
+Line 1391: _("number of bytes") ===> Line 1479: _("invalid number of bytes")
+
+====================
+ Clone Fragments 23
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_obsolescent_option() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:main()
+Line 1317: ++p ===> Line 1645: i++
+Line 1317: ++p ===> Line 1652: i++
+Line 1323: ++p ===> Line 1645: i++
+Line 1323: ++p ===> Line 1652: i++
+Line 1333: ++p ===> Line 1645: i++
+Line 1333: ++p ===> Line 1652: i++
+Line 1337: ++p ===> Line 1645: i++
+Line 1337: ++p ===> Line 1652: i++
+Line 1344: ++p ===> Line 1645: i++
+Line 1344: ++p ===> Line 1652: i++
+Line 1381: len = n_string_end - n_string ===> Line 1634: n_files = argc - optind
+
+====================
+ Clone Fragments 24
+====================
+* /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_options() ===> /Users/amhamid/dev/sandbox/COREUTILS-4_5_12/src/tail.c:parse_options()
+Line 1479: _("invalid number of bytes") ===> Line 1478: _("invalid number of lines")
+Line 1482: OFF_T_MAX ===> Line 1482: OFF_T_MAX
+Line 1492: forever = 1 ===> Line 1457: forever = 1
+Line 1501: reopen_inaccessible_files = 1 ===> Line 1459: reopen_inaccessible_files = 1
+Line 1532: PID_T_MAX ===> Line 1482: OFF_T_MAX
+Line 1532: PID_T_MAX ===> Line 1532: PID_T_MAX

@@ -1,0 +1,103 @@
+vertex : j = i + 1
+AST : (c:=)-+-(c:variable)-+-name:"j"
+      |              +-type:(c:integer)-<...>
+      |              +-storage-class:auto
+      |              +-unnormalized:(cc:variable)-<...>
+      |              `-abs-loc:j-22
+      +-(c:+)-+-(c:variable)-+-name:"i"
+      |       |              +-type:(c:integer)-<...>
+      |       |              +-storage-class:auto
+      |       |              +-unnormalized:(cc:variable)-<...>
+      |       |              `-abs-loc:i-19
+      |       +-(c:integer-value-32)-+-value:1
+      |       |                      +-type:(c:integer)-<...>
+      |       |                      +-is-decimal-literal:true
+      |       |                      `-unnormalized:(cc:integer-value)-<...>
+      |       `-type:(c:integer)-<...>
+      `-type:(c:integer)-<...>
+
+
+
+
+vertex : for ( count<10
+AST : (c:<)-+-(c:variable)-+-name:"count"
+      |              +-type:(c:integer)-<...>
+      |              +-storage-class:auto
+      |              +-unnormalized:(cc:variable)-<...>
+      |              `-abs-loc:count-23
+      +-(c:integer-value-32)-+-value:10
+      |                      +-type:(c:integer)-<...>
+      |                      +-is-decimal-literal:true
+      |                      `-unnormalized:(cc:integer-value)-<...>
+      `-type:(c:integer)-<...>
+
+
+
+
+vertex : count=0
+AST : (c:=)-+-(c:variable)-+-name:"count"
+      |              +-type:(c:integer)-<...>
+      |              +-storage-class:auto
+      |              +-unnormalized:(cc:variable)-<...>
+      |              `-abs-loc:count-23
+      +-(c:integer-value-32)-+-value:0
+      |                      +-type:(c:integer)-<...>
+      |                      +-is-decimal-literal:false
+      |                      `-unnormalized:(cc:integer-value)-<...>
+      `-type:(c:integer)-<...>
+
+
+call-site : boo()
+(c:call)-+-(c:addr)-+-(c:routine)-+-name:"boo"
+         |          |             +-type:(c:routine-type)-<...>
+         |          |             +-storage-class:unspecified
+         |          |             +-is-member:false
+         |          |             +-is-virtual:false
+         |          |             +-noreturn:false
+         |          |             +-unnormalized:(cc:routine)-<...>
+         |          |             `-abs-loc:boo
+         |          `-type:(c:pointer)-<...>
+         `-type:(c:integer)-<...>
+
+(c:=)-+-(c:variable)-+-name:"first"
+      |              +-type:(c:pointer)-<...>
+      |              +-storage-class:auto
+      |              +-unnormalized:(cc:variable)-<...>
+      |              `-abs-loc:first-288
+      +-(c:dot)-+-(c:ptr)-+-(c:variable)-+-name:"first"
+      |         |         |              +-type:(c:pointer)-<...>
+      |         |         |              +-storage-class:auto
+      |         |         |              +-unnormalized:(cc:variable)-<...>
+      |         |         |              `-abs-loc:first-288
+      |         |         `-type:(c:struct)-<...>
+      |         +-(c:field)-+-name:"next"
+      |         |           +-type:(c:pointer)-<...>
+      |         |           +-offset:1032
+      |         |           +-is-bit-field:false
+      |         |           +-bit-offset:0
+      |         |           +-is-last-field:true
+      |         |           `-unnormalized:(cc:field)-<...>
+      |         `-type:(c:pointer)-<...>
+      `-type:(c:pointer)-<...>
+
+
+(c:=)-+-(c:variable)-+-name:"first"
+      |              +-type:(c:pointer)-<...>
+      |              +-storage-class:auto
+      |              +-unnormalized:(cc:variable)-<...>
+      |              `-abs-loc:first-315
+      +-(c:dot)-+-(c:ptr)-+-(c:variable)-+-name:"first"
+      |         |         |              +-type:(c:pointer)-<...>
+      |         |         |              +-storage-class:auto
+      |         |         |              +-unnormalized:(cc:variable)-<...>
+      |         |         |              `-abs-loc:first-315
+      |         |         `-type:(c:struct)-<...>
+      |         +-(c:field)-+-name:"next"
+      |         |           +-type:(c:pointer)-<...>
+      |         |           +-offset:1032
+      |         |           +-is-bit-field:false
+      |         |           +-bit-offset:0
+      |         |           +-is-last-field:true
+      |         |           `-unnormalized:(cc:field)-<...>
+      |         `-type:(c:pointer)-<...>
+      `-type:(c:pointer)-<...>

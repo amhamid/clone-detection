@@ -1,0 +1,186 @@
+(load "/Users/amhamid/dev/master-thesis/src/collectionUtils.stk")
+(load "/Users/amhamid/dev/master-thesis/src/findReachablePDG.stk")
+(load "/Users/amhamid/dev/master-thesis/src/findPairsOfSimilarExpressionVertex.stk")
+
+; Check whether a vertex is relevant for futher comparison
+(define (find-clones:isRelevantVertex v)
+	(let(
+			(vertexKind (pdg-vertex-kind v))
+		)
+		(or
+			(equal? 'expression vertexKind)
+			(equal? 'control-point vertexKind) ; if, switch, while, do-while, or for statement
+			(equal? 'call-site vertexKind)
+			(equal? 'indirect-call vertexKind)
+		)
+	)
+)
+
+(define (find-clones:ignoreVertex vertex)
+	(let(
+			(ignoredVertices (list "NULL" "-1" "0" "1"))
+		)
+		(if 
+			(member (pdg-vertex-characters vertex) ignoredVertices)
+			#t
+			#f
+		)
+	)
+)
+
+; Filter on relevant vertex
+(define (find-clones:filterOnRelevantVertex vertexList)
+	(col-utils:filter (lambda (v) (find-clones:isRelevantVertex v)) vertexList)
+)
+
+; Create PDG_VERTEX_SET and add the vertex into the set
+(define (find-clones:createPdgVertexSet vertex)
+	(let(
+			(pdgVertexSet (pdg-vertex-set-create))
+		)
+		(pdg-vertex-set-put! pdgVertexSet vertex)
+		pdgVertexSet
+	)	
+)
+
+; This is to heuristically pick a matching vertex when a certain vertex has more matches.
+; First priority is pick the same syntax (string comparison).
+; If there is none then pick the first match from the list.
+(define (find-clones:heuristicMatching vertexName vertices)
+	(if
+		(> (length (col-utils:filter (lambda (v) (equal? vertexName (pdg-vertex-characters v))) vertices)) 0)
+		(car (col-utils:filter (lambda (v) (equal? vertexName (pdg-vertex-characters v))) vertices))
+		(car vertices)
+	)
+)
+
+; Compare one vertex with the other vertex
+(define (find-clones:compareVertex vertex otherVertex)
+	(let(
+			(relevantPredecessors 
+				(cons vertex
+					(find-clones:filterOnRelevantVertex 
+						(col-utils:pdgEdgeSet->list (pdg-vertex-intra-sources vertex))
+					)
+				)
+			)
+            (relevantPredecessors2 
+            	(cons otherVertex 
+            		(find-clones:filterOnRelevantVertex 
+						(col-utils:pdgEdgeSet->list (pdg-vertex-intra-sources otherVertex))
+					)
+            	)				
+			)
+
+			(result '())
+			(uniqueVertices '())
+	    )
+
+		(for-each 
+			(lambda (v) 
+				(let( 
+						(matchedVertices (col-utils:filter (lambda (v2) (pair-vertex:compareAST v v2)) relevantPredecessors2))
+					)							
+					(if (and
+							(> (length matchedVertices) 0)
+							(not (member (cons v (find-clones:heuristicMatching (pdg-vertex-characters v) matchedVertices)) uniqueVertices))
+							(not (member (cons (find-clones:heuristicMatching (pdg-vertex-characters v) matchedVertices) v) uniqueVertices))
+							(not (find-clones:ignoreVertex v))
+						)
+						(let(
+								(heuristicMatchedVertex (find-clones:heuristicMatching (pdg-vertex-characters v) matchedVertices))
+							)
+							(set! result (cons (cons v heuristicMatchedVertex) result))	; add the heuristically matched vertex from the back-slicing operation, this is because adding all of the matched vertices won't perform on a large program!
+							(set! uniqueVertices (cons (cons v heuristicMatchedVertex) uniqueVertices))
+						)						
+					)		
+				)
+			)
+			relevantPredecessors
+		)
+
+		result
+	)
+)
+
+; MAIN EXECUTION
+(define (find-clones:main debug)
+	(let(
+			(expressionVertices (col-utils:filterOnKind (reachable-pdg:getAllVertex) 'expression))
+		)
+
+		; for debug purposes 		
+		(if debug
+			(begin
+				(newline)
+				(newline)
+				(display "Similar Syntactic Structure Vertices: ")
+				(newline)
+			)
+		)
+
+		(let(
+				(totalClones '())
+				(similarVertices (pair-vertex:find '() expressionVertices debug))
+			)
+			
+			(newline)
+			(newline)
+			(display "Comparing matchedVertices  ")
+			(newline)
+
+			(for-each 
+				(lambda (similarVertex)
+					(let(
+							; find-clones:compareVertex will do back-slice and compare AST structure each vertex with each other
+							(result (find-clones:compareVertex (car similarVertex) (cdr similarVertex)))
+							; clones is used to store temporary clones from matched vertices (from the statement above 'result')
+							(clones '())
+						)
+						(display ">")
+						(for-each
+							(lambda (matchedVertices)
+								(let(
+										(matchedVertex1 (car matchedVertices))
+										(matchedVertex2 (cdr matchedVertices))
+									)
+									(display ".")
+
+									 ;test the matched vertices (from back-slicing/forward-slicing)
+									(if (and 
+											(not (equal? matchedVertex1 matchedVertex2))
+											(not (member (cons matchedVertex1 matchedVertex2) clones)) ; test combination v1 v2
+											(not (member (cons matchedVertex2 matchedVertex1) clones)) ; test combination v2 v1
+										)
+										(begin
+											(display "+")
+											(set! clones (cons matchedVertices clones))
+										)
+									)
+								)
+							)
+							result
+						)
+						(if 
+							(not (member clones totalClones)) 
+							(set! totalClones (cons clones totalClones))
+						)
+					)
+				)
+				similarVertices
+			)
+
+			; clean up total clones by removing subsumed clones
+			(newline)
+			(newline)
+			(newline)
+
+			(display "find-clones:main   FINISH !!!")
+			(newline)
+			(newline)
+
+			; return the total clones
+			totalClones
+		)
+	)
+)

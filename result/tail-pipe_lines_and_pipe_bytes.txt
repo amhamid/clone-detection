@@ -1,0 +1,70 @@
+pipe_lines() {
+	    ...
+	++  while ((nbytes = tmp->nbytes = safe_read (fd, tmp->buffer, BUFSIZ)) > 0) {
+	++    	tmp->next = NULL;
+	++      total_lines += tmp->nlines;
+	++      if (tmp->nbytes + last->nbytes < BUFSIZ) {
+	++          memcpy (&last->buffer[last->nbytes], tmp->buffer, tmp->nbytes);
+	++          last->nbytes += tmp->nbytes;
+	            ...
+	        }
+	++      else {
+	++          last = last->next = tmp;
+	++          if (total_lines - first->nlines > n_lines) {
+	++              tmp = first;
+	++              total_lines -= first->nlines;
+	++              first = first->next;
+	            }
+	++          else
+	++              tmp = (LBUFFER *) xmalloc (sizeof (LBUFFER));
+	        }
+	    ...
+	**  for (tmp = first; total_lines - tmp->nlines > n_lines; tmp = tmp->next)
+	**      total_lines -= tmp->nlines;
+	    ...
+	**  for (tmp = tmp->next; tmp; tmp = tmp->next)
+	**      xwrite (STDOUT_FILENO, tmp->buffer, tmp->nbytes);
+
+	**  free_lbuffers:
+	**        while (first) {
+	**             tmp = first->next;
+	**             free ((char *) first);
+	**             first = tmp;
+	          }
+}
+
+
+pipe_bytes() {
+			...
+	++  while ((tmp->nbytes = safe_read (fd, tmp->buffer, BUFSIZ)) > 0) {
+	++    	tmp->next = NULL;
+	        ...
+	++      total_bytes += tmp->nbytes;
+	++      if (tmp->nbytes + last->nbytes < BUFSIZ) {
+	++          memcpy (&last->buffer[last->nbytes], tmp->buffer, tmp->nbytes);
+	++          last->nbytes += tmp->nbytes;
+	        }
+	++      else {
+	++          last = last->next = tmp;
+	++          if (total_bytes - first->nbytes > n_bytes) {
+	++              tmp = first;
+	++              total_bytes -= first->nbytes;
+	++              first = first->next;
+	            }
+	++          else
+	++              tmp = (CBUFFER *) xmalloc (sizeof (CBUFFER));
+	        }
+	    ...
+	**  for (tmp = first; total_bytes - tmp->nbytes > n_bytes; tmp = tmp->next)
+	**      total_bytes -= tmp->nbytes;
+		  ...
+	**  for (tmp = tmp->next; tmp; tmp = tmp->next)
+	**      xwrite (STDOUT_FILENO, tmp->buffer, tmp->nbytes);
+
+	**  free_cbuffers:
+	**          while (first) {
+	**                tmp = first->next;
+	**                free ((char *) first);
+	**                first = tmp;
+	            }
+}
